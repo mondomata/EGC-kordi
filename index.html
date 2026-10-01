@@ -142,34 +142,13 @@
 			</div>
 			<div class="card">
                 <div class="card-header">
-				<div class="google-search-box">
-  <input type="text" class="input-wrapper id="gmaps-address-input" placeholder="Keresés Google Térképen...">
-  <button type="button" class="btn-primary" onclick="searchOnGoogleMaps()"><span class="custom-icon">&#128270;</span>↗</button>
-	<script> /* script = keresés/találat külön oldalon a Google térképen... */
-					function searchOnGoogleMaps() {
-  const input = document.getElementById('gmaps-address-input');
-  const query = input.value.trim();
-
-  if (!query) {
-    alert('Kérjük, adjon meg egy címet a kereséshez!');
-    return;
-  }
-
-  // Google Maps kereső URL felépítése
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-
-  // Megnyitás új lapon
-  window.open(googleMapsUrl, '_blank');
-}
-
-// Opcionális: Enter gomb lenyomására is induljon el a keresés
-document.getElementById('gmaps-address-input').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    searchOnGoogleMaps();
-  }
-});
-	</script>
-</div></div></div>
+			<form action="https://www.google.com/maps/search/" method="get" target="_blank">
+  <!-- A Google Maps az 'api=1' és 'query' paramétereket várja -->
+  <input type="hidden" name="api" value="1">
+  <input type="text" name="query" placeholder="Cím? (pl. Pécs, Kálvária u 1)" required>
+  <button type="submit">Mutatás Google Térképen ↗</button>
+</form>
+				</div></div></div>
 		</aside>
 
         <!-- Térkép Munkaterület -->

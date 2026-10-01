@@ -3,7 +3,7 @@ body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8f
 header { background-color: royalblue; color: #fff; padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 /* #4f46e5; eredeti background */
 header .logo-container { display: flex; align-items: center; } 
-.logo { z-index:100; position:absolute; top:5px;left:5px; margin: 3px; padding: 0px; height: 60px; width: 60px; border:solid 2px lightgray; border-radius: 50%;} 
+.logo { z-index:100; float:left; position:absolute; top:5px;left:5px; margin: 3px; padding: 0px; height: 60px; width: 60px; border:solid 2px lightgray; border-radius: 50%;} 
 header h1 { margin-left: 70px; font-size: 1.125rem; font-weight: 700; }
 header p { font-size: 0.75rem; color: #c7d2fe; }
 

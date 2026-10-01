@@ -97,24 +97,7 @@
                 /* régi const...
                 const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=hu&limit=1`;
                 */
-                fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    if (data && data.length > 0) {
-      const result = data[0];
-      const addr = result.address;
-
-      const varos = addr.city || addr.town || addr.village || '';
-      const utca = addr.road || addr.pedestrian || addr.suburb || '';
-      const hazszam = addr.house_number ? `${addr.house_number}.` : '';
-
-      // Egyénileg felépített pontos cím:
-      const pontosCim = `${varos}, ${utca} ${hazszam}`.trim();
-
-      console.log("Megjelenítendő cím:", pontosCim);
-    }
-  });
-                /*régi fetch...
+                
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -134,7 +117,7 @@
                 .catch(err => {
                     showNotification('Hiba történt a keresés során.');
                 }); 
-                */
+                
         }
 
         function displayOnMap(lat, lng, y, x, label) {

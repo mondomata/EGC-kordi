@@ -161,7 +161,7 @@
         function toggleSearchMode() {
             if (currentMode === 'EOV') {
                 currentMode = 'GPS';
-                document.getElementById('formTitle').textContent = 'GPS Koordináta keresõ';
+                document.getElementById('formTitle').textContent = 'GPS Koordináta';
                 document.getElementById('toggleModeLink').textContent = 'EOV?';
                 document.getElementById('eovFields').classList.add('hidden');
                 document.getElementById('gpsFields').classList.remove('hidden');
@@ -171,7 +171,7 @@
                 document.getElementById('lngCoord').required = true;
             } else {
                 currentMode = 'EOV';
-                document.getElementById('formTitle').textContent = 'EOV Koordináta keresõ';
+                document.getElementById('formTitle').textContent = 'EOV Koordináta';
                 document.getElementById('toggleModeLink').textContent = 'GPS?';
                 document.getElementById('gpsFields').classList.add('hidden');
                 document.getElementById('eovFields').classList.remove('hidden');

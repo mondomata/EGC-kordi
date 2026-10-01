@@ -139,6 +139,37 @@
                     </div>
                     <button type="submit" class="btn-primary" style="width:100%;">Mutatás térképen</button>
                 </form>
+			<div class="card">
+                <div class="card-header">
+				<div class="google-search-box">
+  <input type="text" id="gmaps-address-input" placeholder="Keresése a Google Térképen...">
+  <button type="button" onclick="searchOnGoogleMaps()">Keres↗</button>
+					<script /* script = keresés/találat külön oldalon a Google térképen... */
+					function searchOnGoogleMaps() {
+  const input = document.getElementById('gmaps-address-input');
+  const query = input.value.trim();
+
+  if (!query) {
+    alert('Kérjük, adjon meg egy címet a kereséshez!');
+    return;
+  }
+
+  // Google Maps kereső URL felépítése
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
+  // Megnyitás új lapon
+  window.open(googleMapsUrl, '_blank');
+}
+
+// Opcionális: Enter gomb lenyomására is induljon el a keresés
+document.getElementById('gmaps-address-input').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    searchOnGoogleMaps();
+  }
+});
+				</script>
+</div>
+				</div>
             </div>
 		</aside>
 

@@ -1,4 +1,4 @@
-/* EGC TÉRKÉP FUNKCIÓK */
+/* EGC TÃ‰RKÃ‰P FUNKCIÃ“K */
         let map;
         let currentMarker = null;
         let currentMode = 'EOV';
@@ -16,7 +16,7 @@
         function toggleSearchMode() {
             if (currentMode === 'EOV') {
                 currentMode = 'GPS';
-                document.getElementById('formTitle').textContent = 'GPS Koordináta keresõ';
+                document.getElementById('formTitle').textContent = 'GPS KoordinÃ¡ta keresÃµ';
                 document.getElementById('toggleModeLink').textContent = 'EOV?';
                 document.getElementById('eovFields').classList.add('hidden');
                 document.getElementById('gpsFields').classList.remove('hidden');
@@ -26,7 +26,7 @@
                 document.getElementById('lngCoord').required = true;
             } else {
                 currentMode = 'EOV';
-                document.getElementById('formTitle').textContent = 'EOV Koordináta keresõ';
+                document.getElementById('formTitle').textContent = 'EOV KoordinÃ¡ta keresÃµ';
                 document.getElementById('toggleModeLink').textContent = 'GPS?';
                 document.getElementById('gpsFields').classList.add('hidden');
                 document.getElementById('eovFields').classList.remove('hidden');
@@ -64,7 +64,7 @@
                 const temp = yNum; yNum = xNum; xNum = temp;
                 document.getElementById('yCoord').value = yNum;
                 document.getElementById('xCoord').value = xNum;
-                showNotification('X és Y felcserélve!');
+                showNotification('X Ã©s Y felcserÃ©lve!');
             }
 
             const gps = eovToWgs84(yNum, xNum);
@@ -81,20 +81,40 @@
                 const temp = latNum; latNum = lngNum; lngNum = temp;
                 document.getElementById('latCoord').value = latNum;
                 document.getElementById('lngCoord').value = lngNum;
-                showNotification('Lat és Lng felcserélve!');
+                showNotification('Lat Ã©s Lng felcserÃ©lve!');
             }
 
             const eov = wgs84ToEov(latNum, lngNum);
             displayOnMap(latNum, lngNum, eov.y, eov.x, label);
         }
 
-        // --- Címkeresõ funkció Nominatim API segítségével ---
+        // --- CÃ­mkeresÃµ funkciÃ³ Nominatim API segÃ­tsÃ©gÃ©vel ---
         function searchAddress(query) {
-            showNotification('Cím keresése...');
+            showNotification('CÃ­m keresÃ©se...');
             
-            // Keresési találatok szûkítése Magyarországra (countrycodes=hu)
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=hu&limit=1`;
+            // KeresÃ©si talÃ¡latok szÃ»kÃ­tÃ©se MagyarorszÃ¡gra (countrycodes=hu)
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=hu&limit=1&addressdetails=1`;
+                /* rÃ©gi const...
+                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=hu&limit=1`;
+                */
+                fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    if (data && data.length > 0) {
+      const result = data[0];
+      const addr = result.address;
 
+      const varos = addr.city || addr.town || addr.village || '';
+      const utca = addr.road || addr.pedestrian || addr.suburb || '';
+      const hazszam = addr.house_number ? `${addr.house_number}.` : '';
+
+      // EgyÃ©nileg felÃ©pÃ­tett pontos cÃ­m:
+      const pontosCim = `${varos}, ${utca} ${hazszam}`.trim();
+
+      console.log("MegjelenÃ­tendÅ‘ cÃ­m:", pontosCim);
+    }
+  });
+                /*rÃ©gi fetch...
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -103,17 +123,18 @@
                         const lat = parseFloat(result.lat);
                         const lng = parseFloat(result.lon);
                         
-                        // Átváltás EOV-ra és megjelenítés
+                        // ÃtvÃ¡ltÃ¡s EOV-ra Ã©s megjelenÃ­tÃ©s
                         const eov = wgs84ToEov(lat, lng);
                         displayOnMap(lat, lng, eov.y, eov.x, result.display_name.split(',')[0]);
-                        showNotification('Cím megtalálva!');
+                        showNotification('CÃ­m megtalÃ¡lva!');
                     } else {
-                        showNotification('A megadott cím nem található.');
+                        showNotification('A megadott cÃ­m nem talÃ¡lhatÃ³.');
                     }
                 })
                 .catch(err => {
-                    showNotification('Hiba történt a keresés során.');
-                });
+                    showNotification('Hiba tÃ¶rtÃ©nt a keresÃ©s sorÃ¡n.');
+                }); 
+                */
         }
 
         function displayOnMap(lat, lng, y, x, label) {
@@ -127,8 +148,8 @@
 
             document.getElementById('resY').textContent = y.toLocaleString() + ' m';
             document.getElementById('resX').textContent = x.toLocaleString() + ' m';
-            document.getElementById('resLat').textContent = lat + '°';
-            document.getElementById('resLng').textContent = lng + '°';
+            document.getElementById('resLat').textContent = lat + 'Â°';
+            document.getElementById('resLng').textContent = lng + 'Â°';
             document.getElementById('resultsPanel').classList.remove('hidden');
         }
 
@@ -139,7 +160,7 @@
             setTimeout(() => notif.classList.add('hidden'), 3000);
         }
 
-        // Címkeresõ ûrlap beküldése
+        // CÃ­mkeresÃµ Ã»rlap bekÃ¼ldÃ©se
         document.getElementById('addressForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const query = document.getElementById('addressInput').value;
@@ -167,6 +188,6 @@
 
         window.onload = function() {
             initMap();
-            setPreset(649885, 240347, 'Budapest Országház');
+            setPreset(649885, 240347, 'Budapest OrszÃ¡ghÃ¡z');
         };
 

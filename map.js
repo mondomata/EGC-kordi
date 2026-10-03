@@ -3,8 +3,8 @@
         let currentMarker = null;
         let currentMode = 'EOV';
 
-        // LocationIQ API Access Token helye (Itt cseréld ki a saját API kulcsodra!)
-        const LOCATIONIQ_TOKEN = 'IDE_ÍRD_A_SZEMÉLYES_LOCATIONIQ_API_KULCSODAT';
+        // LocationIQ API Access Token (saját API kulcs!)
+        const LOCATIONIQ_TOKEN = 'pk.1ca7fd6f810b4099498c155c2db4aa05';
 
         proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
 

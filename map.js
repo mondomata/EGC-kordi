@@ -96,21 +96,22 @@ function processGps(lat, lng, label = 'GPS Pont') {
 
 // --- Google Térkép Integrációs Funkciók ---
 
-// Keresés megnyitása felugró ablakban a képernyő jobb oldalán
+// Keresés megnyitása felugró ablakban a képernyő jobb oldalán (oldalsáv nélküli nézetben)
 function openInGoogleMaps() {
     const query = document.getElementById('googleAddressInput').value.trim();
     if (!query) {
-        showNotification('Kérem, adjon meg egy címet!');
+        showNotification('Kérjük, adjon meg egy címet!');
         return;
     }
 
-    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+    // A /maps?q= URL formátum közvetlenül a térképre teszi a piros gombostűt, nagy oldalsáv nélkül
+    const googleUrl = `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
     
     // Képernyőméretek lekérdezése a jobb oldalra pozicionáláshoz
-    const width = 800;
+    const width = 850;
     const height = 700;
-    const left = window.screen.width - width - 50; // Jobb szélétől 50px-re
-    const top = 100;
+    const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
+    const top = 80;
 
     // Felugró ablak megnyitása
     googleWindow = window.open(
@@ -119,7 +120,7 @@ function openInGoogleMaps() {
         `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
     );
 
-    showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk a piros helyjelzőn), majd kattintson a Beillesztésre!');
+    showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

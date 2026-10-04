@@ -95,8 +95,10 @@
         function searchAddress(query) {
             showNotification('Cím keresése...');
             
-            // LocationIQ Search API hívás (EU szerver végpont)
-            const url = `https://eu1.locationiq.com/v1/search.php?key=${LOCATIONIQ_TOKEN}&q=${encodeURIComponent(query)}&countrycodes=hu&format=json&addressdetails=1&limit=1`;
+        // LocationIQ Search API hívás (EU szerver végpont)
+        // Magyarország koordináta-határai közé szorított keresés (viewbox: lng1,lat1,lng2,lat2)
+           const url = `https://eu1.locationiq.com/v1/search.php?key=${LOCATIONIQ_TOKEN}&q=${encodeURIComponent(query)}&countrycodes=hu&bounded=1&viewbox=16.1,45.7,22.9,48.6&format=json&addressdetails=1&limit=1`;
+
 
             fetch(url)
                 .then(response => {

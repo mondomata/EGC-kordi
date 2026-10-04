@@ -108,8 +108,8 @@ function openInGoogleMaps() {
     const googleUrl = `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
     
     // Képernyőméretek lekérdezése a jobb oldalra pozicionáláshoz
-    const width = 850;
-    const height = 700;
+    const width = 400; // 850
+    const height = 300; // 700
     const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
     const top = 80;
 
@@ -117,7 +117,7 @@ function openInGoogleMaps() {
     googleWindow = window.open(
         googleUrl, 
         'GoogleMapsPopup', 
-        `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
+        `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
     );
 
     showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');

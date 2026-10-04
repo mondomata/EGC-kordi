@@ -91,17 +91,18 @@
             displayOnMap(latNum, lngNum, eov.y, eov.x, label);
         }
 
-        // --- Címkeresõ funkció LocationIQ API segítségével ---
+// --- Címkeresõ funkció LocationIQ API segítségével ---
         function searchAddress(query) {
             showNotification('Cím keresése...');
             
-            // LocationIQ Search API hívás (Magyarországra szűkítve, házszám részletekkel)
-            const url = `https://us1.locationiq.com/v1/search.php?key=${LOCATIONIQ_TOKEN}&q=${encodeURIComponent(query)}&countrycodes=hu&format=json&addressdetails=1&limit=1`;
+            // LocationIQ Search API hívás (EU szerver végpont)
+            const url = `https://eu1.locationiq.com/v1/search.php?key=${LOCATIONIQ_TOKEN}&q=${encodeURIComponent(query)}&countrycodes=hu&format=json&addressdetails=1&limit=1`;
 
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Hiba a keresési válaszban');
+                        // Ha az API hibakóddal tér vissza (pl. 401 Unauthorized, 403 Forbidden, 429 Limit)
+                        throw new Error(`API válasz hiba: ${response.status}`);
                     }
                     return response.json();
                 })
@@ -120,6 +121,7 @@
                     }
                 })
                 .catch(err => {
+                    console.error('Keresési hiba részletei:', err);
                     showNotification('Hiba történt a keresés során.');
                 }); 
         }

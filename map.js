@@ -3,7 +3,10 @@ let map;
 let currentMarker = null;
 let currentMode = 'EOV';
 
-proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
+// EOV EPSG:23700 definíció proj4-hez
+if (typeof proj4 !== 'undefined') {
+    proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
+}
 
 function initMap() {
     map = L.map('map').setView([47.1625, 19.5033], 7);
@@ -90,7 +93,6 @@ function processGps(lat, lng, label = 'GPS Pont') {
 
 // --- Google Térkép Integrációs Funkciók ---
 
-// 1. Megnyitás új lapon a Google Térképen
 function openInGoogleMaps() {
     const query = document.getElementById('googleAddressInput').value.trim();
     if (!query) {
@@ -102,18 +104,15 @@ function openInGoogleMaps() {
     showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');
 }
 
-// 2. Vágólap kiolvasása és megjelenítése az OSM térképen
 async function pasteFromGoogle() {
     try {
         const text = await navigator.clipboard.readText();
-        // GPS koordináta formátum felismerése (pl. "46.07531, 18.22912" vagy "46.07531 18.22912")
         const match = text.match(/(-?\d+\.\d+)[\s,]+(-?\d+\.\d+)/);
         
         if (match) {
             const lat = parseFloat(match[1]);
             const lng = parseFloat(match[2]);
             
-            // Ha EOV módban vagyunk, átváltunk GPS mezőkre
             if (currentMode !== 'GPS') {
                 toggleSearchMode();
             }
@@ -157,24 +156,24 @@ function showNotification(text) {
 }
 
 // Form beküldések kezelése
-document.getElementById('coordForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (currentMode === 'EOV') {
-        processEov(document.getElementById('yCoord').value, document.getElementById('xCoord').value, 'Egyedi EOV Pont');
-    } else {
-        processGps(document.getElementById('latCoord').value, document.getElementById('lngCoord').value, 'Egyedi GPS Pont');
-    }
-});
-
-document.getElementById('clearBtn').addEventListener('click', function() {
-    document.getElementById('coordForm').reset();
-    document.getElementById('googleSearchForm').reset();
-    document.getElementById('resultsPanel').classList.add('hidden');
-    if (currentMarker) { map.removeLayer(currentMarker); currentMarker = null; }
-    map.setView([47.1625, 19.5033], 7);
-});
-
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
     initMap();
     setPreset(649885, 240347, 'Budapest Országház');
-};
+
+    document.getElementById('coordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (currentMode === 'EOV') {
+            processEov(document.getElementById('yCoord').value, document.getElementById('xCoord').value, 'Egyedi EOV Pont');
+        } else {
+            processGps(document.getElementById('latCoord').value, document.getElementById('lngCoord').value, 'Egyedi GPS Pont');
+        }
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function() {
+        document.getElementById('coordForm').reset();
+        document.getElementById('googleSearchForm').reset();
+        document.getElementById('resultsPanel').classList.add('hidden');
+        if (currentMarker) { map.removeLayer(currentMarker); currentMarker = null; }
+        map.setView([47.1625, 19.5033], 7);
+    });
+});

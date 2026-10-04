@@ -108,8 +108,8 @@ function openInGoogleMaps() {
     const googleUrl = `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
     
     // Képernyőméretek lekérdezése a jobb oldalra pozicionáláshoz
-    const width = 600; // 850
-    const height = 400; // 700
+    const width = 700; // 850
+    const height = 300; // 700
     const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
     const top = 80;
 

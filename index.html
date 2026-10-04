@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     
-    <!-- Proj4js a pontos EOV (EPSG:23700) transzformációhoz -->
+    <!-- Proj4js a pontos EOV (EPSG:23700) transzformációhoz (KÖTELEZŐ) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
 </head>
 <body>
     <div class="logo-container">
         <header>
             <div>         
-                <img class="logo" src="FlagHun.png">
+                <img class="logo" src="FlagHun.png" alt="Hun Flag">
                 <h1> 
                     <span style="padding: 0 4px;text-shadow: 2px 2px 4px lightblue;border: solid 1px ghostwhite;border-radius: 4px;">"EGC-kordi" &#128506;</span> Keresõ Térkép 
                 </h1>
@@ -46,7 +46,7 @@
                             <label for="yCoord">Y koordináta (Kelet-Nyugat):<small>~400E-900E m</small></label>
                             <div class="input-wrapper">
                                 <span class="input-prefix">Y</span>
-                                <input type="number" step="any" id="yCoord" placeholder="pl. 587155" class="input-field">
+                                <input type="number" step="any" id="yCoord" placeholder="pl. 587155" class="input-field" required>
                                 <span class="input-suffix">m</span>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <label for="xCoord">X koordináta (Észak-Dél):<small>~40E-350E m</small></label>
                             <div class="input-wrapper">
                                 <span class="input-prefix">X</span>
-                                <input type="number" step="any" id="xCoord" placeholder="pl. 81255" class="input-field">
+                                <input type="number" step="any" id="xCoord" placeholder="pl. 81255" class="input-field" required>
                                 <span class="input-suffix">m</span>
                             </div>
                         </div>
@@ -129,11 +129,11 @@
                     <span class="custom-icon">&#128233;</span>
                 </div>
                 
-                <form id="googleSearchForm">
+                <form id="googleSearchForm" onsubmit="event.preventDefault(); openInGoogleMaps();">
                     <div class="form-group">
                         <label for="googleAddressInput">Település, utca, házszám:<span style="font-size:12px; color: gray"><br>pl. Pécs, Kálvária utca 1</span></label>
                         <div class="input-wrapper">
-                            <input type="text" id="googleAddressInput" placeholder="Keresett cím" class="input-field" style="padding-left:10px;" required>
+                            <input type="text" id="googleAddressInput" placeholder="Keresett cím" class="input-field" style="padding-left:10px;">
                         </div>
                     </div>
                     <div style="display: flex; gap: 5px; margin-top: 8px;">

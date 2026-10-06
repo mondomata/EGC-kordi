@@ -180,7 +180,7 @@ function showNotification(text) {
     const notif = document.getElementById('notification');
     document.getElementById('notificationText').textContent = text;
     notif.classList.remove('hidden');
-    setTimeout(() => notif.classList.add('hidden'), 3500);
+    setTimeout(() => notif.classList.add('hidden'), 15000);  // origin.3500
 }
 
 // Form beküldések kezelése és inicializálás

@@ -115,14 +115,14 @@ function openInGoogleMaps() {
 
     // Felugró ablak megnyitása
     googleWindow = 
-        alert('Kattints jobb egérgombbal a piros helyjelzőre, majd a felugró legfelső sorra (GPS koordináták), így a vágólapra másolod.\nKattints a «GPS beillesztés» gombra!\nAz EGC-n látni fogod a helyszínt és a GPS-OEV Konverziót.');
+       showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk a gombostűn, aztán a koordinátákon), majd kattintson a GPS beillesztésre!');
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 
         `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
     );
 
-    showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');
+    // showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
@@ -150,7 +150,7 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('Google GPS koordináta beillesztve, ablak bezárva!');
+            showNotification('Google GPS koordináta beillesztve, a Google Térkép ablakot bezárhatja!');
         } else {
             showNotification('A vágólapon nem található érvényes GPS koordináta!');
         }

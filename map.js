@@ -115,14 +115,12 @@ function openInGoogleMaps() {
 
     // Felugró ablak megnyitása
     googleWindow = 
-       showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re!');
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 
         `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
-    );
-
-    // showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');
+    )
+        showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re!');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

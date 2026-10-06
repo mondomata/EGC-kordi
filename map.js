@@ -115,7 +115,7 @@ function openInGoogleMaps() {
 
     // Felugró ablak megnyitása
     googleWindow = 
-       showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk a gombostűn, aztán a koordinátákon), majd kattintson a GPS beillesztésre!');
+       showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re!');
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 

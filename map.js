@@ -115,7 +115,7 @@ function openInGoogleMaps() {
 
     // Felugró ablak megnyitása
     googleWindow = 
-        alert('Kattints jobb egérgombbal a piros helyjelzőre, majd a felugró legfelső sorra (GPS koordináták), így a vágólapra másolod.\nKattints a «GPS beillesztés» gombra!\nAz EGC-n látni fogod a helyszínt és a GPS-OEV Konverziót.')
+        alert('Kattints jobb egérgombbal a piros helyjelzőre, majd a felugró legfelső sorra (GPS koordináták), így a vágólapra másolod.\nKattints a «GPS beillesztés» gombra!\nAz EGC-n látni fogod a helyszínt és a GPS-OEV Konverziót.');
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 

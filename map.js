@@ -8,9 +8,14 @@ let googleWindow = null;
 
 // EOV EPSG:23700 definíció proj4-hez
 if (typeof proj4 !== 'undefined') {
+    // Teljes 7-paraméteres EOV (HD72) -> WGS84 transzformáció (forgatással és mérettényezővel)
+    proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0.57,0.83,0.59,-4.0 +units=m +no_defs");
+}
+/* régi proj4...
+if (typeof proj4 !== 'undefined') {
     proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
 }
-
+*/
 function initMap() {
     map = L.map('map').setView([47.1625, 19.5033], 7);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

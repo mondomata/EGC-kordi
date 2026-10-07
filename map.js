@@ -16,6 +16,53 @@ if (typeof proj4 !== 'undefined') {
     proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
 }
 */
+
+function initMap() {
+    // 1. Térképi alaprétegek (Tile Layers) definíciója
+    
+    // OpenStreetMap (Alapértelmezett)
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    });
+
+    // Mapy.cz (Turisztikai / Általános részletes térkép)
+    const mapyCzLayer = L.tileLayer('https://mapserver.mapy.cz/base-m/{z}-{x}-{y}', {
+        maxZoom: 19,
+        attribution: '&copy; Mapy.cz / Seznam.cz'
+    });
+
+    // ESRI World Imagery (Ingyenes, nagy felbontású műholdkép)
+    const esriSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: '&copy; Esri, Maxar, Earthstar Geographics'
+    });
+
+    // OpenTopoMap (Topográfiai / Magassági és domborzati térkép külterületre)
+    const topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: '&copy; OpenTopoMap'
+    });
+
+    // 2. Térkép inicializálása az OSM réteggel
+    map = L.map('map', {
+        center: [47.1625, 19.5033],
+        zoom: 7,
+        layers: [osmLayer] // Ez az alapértelmezetten betöltődő réteg
+    });
+
+    // 3. Rétegválasztó menü (Layer Control) hozzáadása a jobb felső sarokba
+    const baseMaps = {
+        "OpenStreetMap": osmLayer,
+        "Mapy.cz (Részletes)": mapyCzLayer,
+        "Műholdkép (ESRI)": esriSatLayer,
+        "Topográfiai (OpenTopo)": topoLayer
+    };
+
+    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
+}
+
+/* régi initMap...
 function initMap() {
     map = L.map('map').setView([47.1625, 19.5033], 7);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -23,7 +70,7 @@ function initMap() {
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 }
-
+*/
 function toggleSearchMode() {
     if (currentMode === 'EOV') {
         currentMode = 'GPS';

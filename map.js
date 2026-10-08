@@ -156,7 +156,7 @@ function openInGoogleMaps() {
         'GoogleMapsPopup', 
         `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
     )
-        alert('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.');
+        showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon.<br> 2. Kattints a [GPS beillesztés]re.');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

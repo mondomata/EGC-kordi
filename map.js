@@ -158,14 +158,14 @@ const notificationTop = window.screen.availHeight - 20; // Magasságtól függő
 showNotification(
     '1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.',
     { left: notificationLeft, top: notificationTop }
-);
+    )
    // Felugró ablak megnyitása
     googleWindow = 
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 
       `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
-    )
+    );
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

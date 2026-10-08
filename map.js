@@ -147,7 +147,7 @@ function openInGoogleMaps() {
     const width = 650; // 850
     const height = 400; // 700
     const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
-    const top = 360;
+    const bottom = 10;
 
     // Felugró ablak megnyitása
     googleWindow = 

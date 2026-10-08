@@ -147,7 +147,7 @@ function openInGoogleMaps() {
     const width = 650; // 850
     const height = 400; // 700
     const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
-    const top = 250;
+    const top = 360;
 
     // Felugró ablak megnyitása
     googleWindow = 
@@ -156,7 +156,7 @@ function openInGoogleMaps() {
         'GoogleMapsPopup', 
         `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
     )
-        showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon.<br> 2. Kattints a [GPS beillesztés]re.');
+        showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

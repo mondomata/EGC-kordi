@@ -8,51 +8,15 @@ let googleWindow = null;
 
 // EOV EPSG:23700 definíció proj4-hez
 if (typeof proj4 !== 'undefined') {
-    // Teljes 7-paraméteres EOV (HD72) -> WGS84 transzformáció (forgatással és mérettényezővel)
-    proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0.57,0.83,0.59,-4.0 +units=m +no_defs");
-}
-/* régi proj4...
-if (typeof proj4 !== 'undefined') {
     proj4.defs("EPSG:23700", "+proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
 }
-*/
 
 function initMap() {
-    // 1. Térképi alaprétegek (Tile Layers) definíciója
-    
-    // OpenStreetMap (Alapértelmezett)
-    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    map = L.map('map').setView([47.1625, 19.5033], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap'
-    });
-
-    // ESRI World Imagery (Ingyenes, nagy felbontású műholdkép)
-    const esriSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19,
-        attribution: '&copy; Esri, Maxar, Earthstar Geographics'
-    });
-
-    // OpenTopoMap (Topográfiai / Magassági és domborzati térkép külterületre)
-    const topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        attribution: '&copy; OpenTopoMap'
-    });
-
-    // 2. Térkép inicializálása az OSM réteggel
-    map = L.map('map', {
-        center: [47.1625, 19.5033],
-        zoom: 7,
-        layers: [osmLayer] // Ez az alapértelmezetten betöltődő réteg
-    });
-
-    // 3. Rétegválasztó menü (Layer Control) hozzáadása a jobb felső sarokba
-    const baseMaps = {
-        "OpenStreetMap": osmLayer,
-        "Műholdkép (ESRI)": esriSatLayer,
-        "Topográfiai (OpenTopo)": topoLayer
-    };
-
-    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
+    }).addTo(map);
 }
 
 function toggleSearchMode() {
@@ -144,20 +108,19 @@ function openInGoogleMaps() {
     const googleUrl = `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
     
     // Képernyőméretek lekérdezése a jobb oldalra pozicionáláshoz
-    const width = 650; // 850
-    const height = 400; // 700
-  
-// A Google Térkép ablak koordinátái (jobb alsó sarok):
-const left = window.screen.availWidth - width - 20;
-const top = window.screen.availHeight - height - 10;
+    const width = 850;
+    const height = 700;
+    const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
+    const top = 80;
 
-googleWindow = window.open(
-    googleUrl, 
-    'GoogleMapsPopup', 
-    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
-);
-    showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.');
+    // Felugró ablak megnyitása
+    googleWindow = window.open(
+        googleUrl, 
+        'GoogleMapsPopup', 
+        `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
+    );
 
+    showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk), majd kattintson a Beillesztésre!');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
@@ -185,7 +148,7 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('Google GPS koordináta beillesztve, a Google Térkép ablakot bezárhatja!');
+            showNotification('Google GPS koordináta beillesztve, ablak bezárva!');
         } else {
             showNotification('A vágólapon nem található érvényes GPS koordináta!');
         }
@@ -215,7 +178,7 @@ function showNotification(text) {
     const notif = document.getElementById('notification');
     document.getElementById('notificationText').textContent = text;
     notif.classList.remove('hidden');
-    setTimeout(() => notif.classList.add('hidden'), 15000);  // origin.3500
+    setTimeout(() => notif.classList.add('hidden'), 3500);
 }
 
 // Form beküldések kezelése és inicializálás

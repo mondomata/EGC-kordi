@@ -151,14 +151,11 @@ function openInGoogleMaps() {
 const mapLeft = window.screen.availWidth - width - 20;
 const mapTop = window.screen.availHeight - height - 10;
 
-   // Felugró ablak megnyitása
-    googleWindow = 
-        window.open(
-        googleUrl, 
-        'GoogleMapsPopup', 
-      `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
-    )
-
+googleWindow = window.open(
+    googleUrl, 
+    'GoogleMapsPopup', 
+    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
+)
     showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.');
 
 }

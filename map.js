@@ -26,12 +26,6 @@ function initMap() {
         attribution: '&copy; OpenStreetMap'
     });
 
-    // Mapy.cz (Turisztikai / Általános részletes térkép)
-    const mapyCzLayer = L.tileLayer('https://mapserver.mapy.cz/base-m/{z}-{x}-{y}', {
-        maxZoom: 19,
-        attribution: '&copy; Mapy.cz / Seznam.cz'
-    });
-
     // ESRI World Imagery (Ingyenes, nagy felbontású műholdkép)
     const esriSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 19,
@@ -54,7 +48,6 @@ function initMap() {
     // 3. Rétegválasztó menü (Layer Control) hozzáadása a jobb felső sarokba
     const baseMaps = {
         "OpenStreetMap": osmLayer,
-        "Mapy.cz (Részletes)": mapyCzLayer,
         "Műholdkép (ESRI)": esriSatLayer,
         "Topográfiai (OpenTopo)": topoLayer
     };

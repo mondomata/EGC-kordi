@@ -151,21 +151,18 @@ function openInGoogleMaps() {
 const mapLeft = window.screen.availWidth - width - 20;
 const mapTop = window.screen.availHeight - height - 10;
 
-// A Notification pozíciója (bal alsó sarok):
-const notificationLeft = 20;
-const notificationTop = window.screen.availHeight - 20; // Magasságtól függően
-
-showNotification(
-    '1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.',
-    { left: notificationLeft, top: notificationTop }
-    )
    // Felugró ablak megnyitása
     googleWindow = 
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 
       `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
-    );
+    )
+
+    showNotification(
+    '1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.'
+                );
+
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

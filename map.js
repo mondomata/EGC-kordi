@@ -148,8 +148,8 @@ function openInGoogleMaps() {
     const height = 400; // 700
   
 // A Google Térkép ablak koordinátái (jobb alsó sarok):
-const mapLeft = window.screen.availWidth - width - 20;
-const mapTop = window.screen.availHeight - height - 10;
+const left = window.screen.availWidth - width - 20;
+const top = window.screen.availHeight - height - 10;
 
 googleWindow = window.open(
     googleUrl, 

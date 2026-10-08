@@ -147,13 +147,20 @@ function openInGoogleMaps() {
     const width = 650; // 850
     const height = 400; // 700
   
-// Jobb széltől 20px, aljától 10px távolságra (a tálcát figyelembe véve)
-const left = window.screen.availWidth - width - 20;
-const top = window.screen.availHeight - height - 10;
+// A Google Térkép ablak koordinátái (jobb alsó sarok):
+const mapLeft = window.screen.availWidth - width - 20;
+const mapTop = window.screen.availHeight - height - 10;
 
+// A Notification pozíciója (bal alsó sarok):
+const notificationLeft = 20;
+const notificationTop = window.screen.availHeight - 20; // Magasságtól függően
+
+showNotification(
+    '1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.',
+    { left: notificationLeft, top: notificationTop }
+);
    // Felugró ablak megnyitása
     googleWindow = 
-            showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.');
         window.open(
         googleUrl, 
         'GoogleMapsPopup', 

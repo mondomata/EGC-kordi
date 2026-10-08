@@ -52,7 +52,7 @@ aside { width: 360px; background-color: #fff; border-right: 1px solid #e2e8f0; d
 #map-container { flex: 1; position: relative; background-color: #e2e8f0; }
 #map { width: 100%; height: 100%; }
 
-#notification { position: absolute; top: 16px; right: 16px; background: rgba(255, 255, 255, 0.95); padding: 8px 16px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 500; border: 1px solid #cbd5e1; }
+#notification { position: absolute; top: 50px; left: 50px; background: yellow; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 500; border: 1px solid #cbd5e1; }
 .hidden { display: none !important; }
 
 .footer-tag {position: fixed; bottom: 5px; left:170px; font-size: 10px; background:ghostwhite; color: silver; text-align:center; padding: 0;}

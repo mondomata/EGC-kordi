@@ -55,15 +55,6 @@ function initMap() {
     L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
 }
 
-/* régi initMap...
-function initMap() {
-    map = L.map('map').setView([47.1625, 19.5033], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
-}
-*/
 function toggleSearchMode() {
     if (currentMode === 'EOV') {
         currentMode = 'GPS';
@@ -165,7 +156,7 @@ function openInGoogleMaps() {
         'GoogleMapsPopup', 
         `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
     )
-        showNotification('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re!');
+        alert('1. Kattints egér jobbgombbal a piros gombostűn, majd a GPS koordinátákon. 2. Kattints a [GPS beillesztés]re.');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

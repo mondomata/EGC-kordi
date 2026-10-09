@@ -70,7 +70,7 @@ function processEov(y, x, label = 'EOV Pont') {
         const temp = yNum; yNum = xNum; xNum = temp;
         document.getElementById('yCoord').value = yNum;
         document.getElementById('xCoord').value = xNum;
-        showNotification('X és Y felcserélve!');
+        showNotification('X és Y felcserélve.');
     }
 
     const gps = eovToWgs84(yNum, xNum);
@@ -87,7 +87,7 @@ function processGps(lat, lng, label = 'GPS Pont') {
         const temp = latNum; latNum = lngNum; lngNum = temp;
         document.getElementById('latCoord').value = latNum;
         document.getElementById('lngCoord').value = lngNum;
-        showNotification('Lat és Lng felcserélve!');
+        showNotification('Lat és Lng felcserélve.');
     }
 
     const eov = wgs84ToEov(latNum, lngNum);
@@ -100,7 +100,7 @@ function processGps(lat, lng, label = 'GPS Pont') {
 function openInGoogleMaps() {
     const query = document.getElementById('googleAddressInput').value.trim();
     if (!query) {
-        showNotification('Kérjük, adjon meg egy címet!');
+        showNotification('Feladat: cím megadása.');
         return;
     }
 
@@ -120,7 +120,7 @@ function openInGoogleMaps() {
         `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
     );
 
-    showNotification('Másolja ki a GPS-t a Google Térképen (jobb klikk a gombostűn + a koordinátán), majd katt. a [GPS beillesztés]-re');
+    showNotification('Feladat: jobbgombos-kattintás a piros gombostűn + GPS koordinátán (másolás), majd katt. a [GPS beillesztés]-re');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
@@ -148,13 +148,13 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('Google GPS koordináta beillesztve (bezárhatja a Google térkép ablakot).');
+            showNotification('GPS koordináta beillesztve (bezárhatja a Google térkép ablakot).');
         } else {
             showNotification('Nincs GPS koordináta.');
         }
     } catch (err) {
         console.error('Vágólap elrési hiba:', err);
-        showNotification('Engedélyezze a vágólap elérését a böngészőben!');
+        showNotification('Nincs eng. a vágólaphoz a öngészőben!');
     }
 }
 

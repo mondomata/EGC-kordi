@@ -148,9 +148,9 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('Google GPS koordináta beillesztve.');
+            showNotification('Google GPS koordináta beillesztve (bezárhatja a Google térkép ablakot).');
         } else {
-            showNotification('A vágólapon nem található érvényes GPS koordináta.');
+            showNotification('Nincs GPS koordináta.');
         }
     } catch (err) {
         console.error('Vágólap elrési hiba:', err);

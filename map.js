@@ -111,7 +111,7 @@ function openInGoogleMaps() {
     const width = 600;
     const height = 400;
     const left = window.screen.width - width - 20; // Jobb szélétől 20px-re
-    const top = 0;
+    const top = 1;
 
     // Felugró ablak megnyitása
     googleWindow = window.open(
@@ -148,9 +148,9 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('Google GPS koordináta beillesztve, ablak bezárva!');
+            showNotification('Google GPS koordináta beillesztve.');
         } else {
-            showNotification('A vágólapon nem található érvényes GPS koordináta!');
+            showNotification('A vágólapon nem található érvényes GPS koordináta.');
         }
     } catch (err) {
         console.error('Vágólap elrési hiba:', err);

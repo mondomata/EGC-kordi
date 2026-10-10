@@ -12,13 +12,58 @@ if (typeof proj4 !== 'undefined') {
 }
 
 function initMap() {
+    // 1. Standard OpenStreetMap
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    });
+
+    // 2. OpenTopoMap
+    const topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: '&copy; OpenTopoMap'
+    });
+
+    // 3. Esri World Imagery
+    const esriSatLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18,
+        attribution: 'Tiles &copy; Esri'
+    });
+
+    // Magyarország földrajzi határai (Délnyugat és Északkelet sarkok)
+    const hungaryBounds = L.latLngBounds(
+        L.latLng(45.7, 16.0), // Délnyugat (Somogy/Zala déli része alatt)
+        L.latLng(48.6, 22.9)  // Északkelet (Kárpátalja/Abaúj felett)
+    );
+
+    // Térkép inicializálása korlátozásokkal
+    map = L.map('map', {
+        center: [47.1625, 19.5033],
+        zoom: 7,
+        minZoom: 7,                  // Nem engedi túlságosan kicsinyíteni (a teljes ország látszik)
+        maxBounds: hungaryBounds,   // Rögzíti a nézetet Magyarországra
+        maxBoundsViscosity: 1.0,    // Kemény határ: teljesen visszalöki a térképet, ha ki akarna görgetni
+        layers: [osmLayer]
+    });
+
+    // Rétegválasztó a jobb felső sarokban
+    const baseMaps = {
+        "OpenStreetMap Standard": osmLayer,
+        "Topográfiai (Külterület)": topoLayer,
+        "Műholdkép (Esri)": esriSatLayer
+    };
+
+    L.control.layers(baseMaps).addTo(map);
+}
+/* a régi kód:
+function initMap() {
     map = L.map('map').setView([47.1625, 19.5033], 7);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 }
-
+*/
 function toggleSearchMode() {
     if (currentMode === 'EOV') {
         currentMode = 'GPS';

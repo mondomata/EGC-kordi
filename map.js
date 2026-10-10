@@ -137,7 +137,7 @@ function processGps(lat, lng, label = 'GPS Pont') {
 function openInGoogleMaps() {
     const query = document.getElementById('googleAddressInput').value.trim();
     if (!query) {
-        showNotification('&#128070; Kérem, adjon meg egy címet.');
+        showNotification('&#128070; Kérlek, adj meg egy címet.');
         return;
     }
 
@@ -157,7 +157,7 @@ function openInGoogleMaps() {
         `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
     );
 
-    showNotification('&#128070; Jobb-gombbal kattintson a kistérképen a piros (&#128205;) gombostűn + GPS koordinátán (ezzel másolja), majd kattintson a [GPS beillesztés]-re');
+    showNotification('&#128070; <i>Jobb-gombbal</i> kattints a kistérképen a piros (&#128205;) gombostűn + GPS koordinátán (ezzel másolod), majd kattints a [GPS beillesztés]-re');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
@@ -185,13 +185,13 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('GPS koordináta beillesztve (bezárhatja a kis térképablakot).');
+            showNotification('GPS koordináta beillesztve (bezárhatod a kis térképablakot).');
         } else {
             showNotification('Nincs GPS koordináta.');
         }
     } catch (err) {
         console.error('Vágólap elrési hiba:', err);
-        showNotification('&#9757;Nincs engedély a vágólaphoz a öngészőben!');
+        showNotification('&#9757;Nincs engedély a vágólaphoz a böngészőben!');
     }
 }
 
@@ -224,21 +224,7 @@ function showNotification(text) {
         notif.classList.add('hidden');
     }, 30000);
 }
-/* régi:
-function showNotification(text) {
-    // Ha már fut egy időzítő, azt azonnal leállítjuk (RESET)
-    clearTimeout(notificationTimer);
 
-    const notif = document.getElementById('notification');
-    document.getElementById('notificationText').textContent = text;
-    notif.classList.remove('hidden');
-
-    // Új, tiszta 15 másodperces időzítő indítása
-    notificationTimer = setTimeout(() => {
-        notif.classList.add('hidden');
-    }, 30000);
-}
-*/
 // Form beküldések kezelése és inicializálás
 document.addEventListener('DOMContentLoaded', function() {
     initMap();

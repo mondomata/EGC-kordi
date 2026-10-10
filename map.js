@@ -55,15 +55,7 @@ function initMap() {
 
     L.control.layers(baseMaps).addTo(map);
 }
-/* a régi kód:
-function initMap() {
-    map = L.map('map').setView([47.1625, 19.5033], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
-}
-*/
+
 function toggleSearchMode() {
     if (currentMode === 'EOV') {
         currentMode = 'GPS';

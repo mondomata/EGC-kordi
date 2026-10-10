@@ -193,7 +193,7 @@ async function pasteFromGoogle() {
                 googleWindow.close();
             }
 
-            showNotification('GPS koordináta beillesztve (bezárhatja a Google térkép ablakot).');
+            showNotification('GPS koordináta beillesztve (bezárhatja a kis térképablakot).');
         } else {
             showNotification('Nincs GPS koordináta.');
         }

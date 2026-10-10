@@ -100,7 +100,7 @@ function processGps(lat, lng, label = 'GPS Pont') {
 function openInGoogleMaps() {
     const query = document.getElementById('googleAddressInput').value.trim();
     if (!query) {
-        showNotification('Feladat: cím megadása.');
+        showNotification('Kérem, adjon meg egy címet.');
         return;
     }
 
@@ -120,7 +120,7 @@ function openInGoogleMaps() {
         `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
     );
 
-    showNotification('Feladat: jobbgombos-kattintás a piros gombostűn + GPS koordinátán (másolás), majd katt. a [GPS beillesztés]-re');
+    showNotification('Jobb-gombbal kattintson a piros gombostűn + GPS koordinátán (ezzel másolja), majd kattintson a [GPS beillesztés]-re');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
@@ -187,16 +187,9 @@ function showNotification(text) {
     // Új, tiszta 15 másodperces időzítő indítása
     notificationTimer = setTimeout(() => {
         notif.classList.add('hidden');
-    }, 15000);
+    }, 30000);
 }
-/* régi
-function showNotification(text) {
-    const notif = document.getElementById('notification');
-    document.getElementById('notificationText').textContent = text;
-    notif.classList.remove('hidden');
-    setTimeout(() => notif.classList.add('hidden'), 15000);
-}
-*/
+
 // Form beküldések kezelése és inicializálás
 document.addEventListener('DOMContentLoaded', function() {
     initMap();

@@ -145,7 +145,7 @@ function processGps(lat, lng, label = 'GPS Pont') {
 function openInGoogleMaps() {
     const query = document.getElementById('googleAddressInput').value.trim();
     if (!query) {
-        showNotification('Kérem, adjon meg egy címet.');
+        showNotification('&#9757;Kérem, adjon meg egy címet.');
         return;
     }
 
@@ -165,7 +165,7 @@ function openInGoogleMaps() {
         `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
     );
 
-    showNotification('Jobb-gombbal kattintson a piros gombostűn + GPS koordinátán (ezzel másolja), majd kattintson a [GPS beillesztés]-re');
+    showNotification('&#9757;Jobb-gombbal kattintson a piros gombostűn + GPS koordinátán (ezzel másolja), majd kattintson a [GPS beillesztés]-re');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
@@ -199,7 +199,7 @@ async function pasteFromGoogle() {
         }
     } catch (err) {
         console.error('Vágólap elrési hiba:', err);
-        showNotification('Nincs eng. a vágólaphoz a öngészőben!');
+        showNotification('&#9757;Nincs engedély a vágólaphoz a öngészőben!');
     }
 }
 

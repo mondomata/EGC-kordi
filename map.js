@@ -220,7 +220,19 @@ function displayOnMap(lat, lng, y, x, label) {
 }
 
 let notificationTimer = null; // Globális változó az időzítőnek
+function showNotification(text) {
+    clearTimeout(notificationTimer);
 
+    const notif = document.getElementById('notification');
+    // textContent helyett innerHTML használata:
+    document.getElementById('notificationText').innerHTML = text; 
+    notif.classList.remove('hidden');
+
+    notificationTimer = setTimeout(() => {
+        notif.classList.add('hidden');
+    }, 30000);
+}
+/* régi:
 function showNotification(text) {
     // Ha már fut egy időzítő, azt azonnal leállítjuk (RESET)
     clearTimeout(notificationTimer);
@@ -234,7 +246,7 @@ function showNotification(text) {
         notif.classList.add('hidden');
     }, 30000);
 }
-
+*/
 // Form beküldések kezelése és inicializálás
 document.addEventListener('DOMContentLoaded', function() {
     initMap();

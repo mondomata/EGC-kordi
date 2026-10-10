@@ -157,7 +157,7 @@ function openInGoogleMaps() {
         `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
     );
 
-    showNotification('&#128070; Kattints a kistérképen <i>jobb-gombbal</i> a &#128205; gombostűn + GPS koordinátán (ezzel másolod), majd kattints a <span style=background:#28a745;>GPS beilleszt</span>-re');
+    showNotification('&#128070; Kattints a kistérképen <i>jobb-gombbal</i> a &#128205; gombostűn + GPS koordinátán (ezzel másolod), majd kattints a <span style=background:#28a745;color:white;>GPS beilleszt</span>-re');
 }
 
 // Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása

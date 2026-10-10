@@ -194,12 +194,22 @@ async function pasteFromGoogle() {
             const addressText = document.getElementById('googleAddressInput').value || 'Google Maps Pont';
             processGps(lat, lng, addressText);
             
-            // Sikeres beillesztés után azonnal bezárjuk a Google ablakot és töröljük az időzítőjét
+            // --- BIZTOSÍTÉK A BEZÁRÁSRA ---
             clearTimeout(googleWindowTimer);
-            if (googleWindow && !googleWindow.closed) {
-                googleWindow.close();
-                googleWindow = null;
+            
+            // 1. Próbáljuk meg a globális változóval
+            if (window.googleWindow && typeof window.googleWindow.close === 'function') {
+                try { window.googleWindow.close(); } catch(e) {}
             }
+            
+            // 2. Keresés név alapján is, ha esetleg elveszett volna a referencia
+            const popupWin = window.open('', 'GoogleMapsPopup');
+            if (popupWin) {
+                try { popupWin.close(); } catch(e) {}
+            }
+            
+            googleWindow = null;
+            // -----------------------------
 
             showNotification('GPS koordináta sikeresen beillesztve.');
         } else {

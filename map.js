@@ -35,7 +35,7 @@ function initMap() {
     // Magyarország földrajzi határai (Délnyugat és Északkelet sarkok)
     const hungaryBounds = L.latLngBounds(
         L.latLng(45.7, 16.0), // Délnyugat
-        L.latLng(48.6, 22.9)  // Északkelet
+                                         L.latLng(48.6, 22.9)  // Északkelet
     );
 
     // Térkép inicializálása korlátozásokkal
@@ -145,73 +145,58 @@ function openInGoogleMaps() {
     // Előző futó ablakbezárási időzítő törlése gombnyomásra
     clearTimeout(googleWindowTimer);
 
-    // Ha már nyitva van egy ablak, bezárjuk mielőtt újat nyitnánk
+    // Ha már nyitva van egy ablak, bezárjuk mielőtt újat nyitnánk (saját domainen belüli hivatkozásként még működhet)
     if (googleWindow && !googleWindow.closed) {
-        googleWindow.close();
+        try { googleWindow.close(); } catch(e) {}
     }
 
     const googleUrl = `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
-    
+
     const width = 600;
     const height = 600;
     const left = window.screen.width - width - 300;
     const top = 200;
 
     googleWindow = window.open(
-        googleUrl, 
-        'GoogleMapsPopup', 
+        googleUrl,
+        'GoogleMapsPopup',
         `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=no`
     );
 
-    // Biztonsági időzítő: 15 mp múlva automatikusan bezárja a Google ablakot, ha nem nyúltak hozzá
+    // Biztonsági időzítő: 15 mp múlva elengedi a referenciát
     googleWindowTimer = setTimeout(() => {
-        if (googleWindow && !googleWindow.closed) {
-            googleWindow.close();
-            googleWindow = null;
-        }
+        googleWindow = null;
     }, 15000);
 
     showNotification('&#9757; Kattints a kis térképen <i>jobb-gombbal</i> a &#128205; gombostűn + GPS koordinátán (másolás), majd kattints a <span style="background:#28a745;color:white;padding:2px 4px;border-radius:3px;">GPS beilleszt</span>-re');
 }
 
-// Vágólap kiolvasása, feldolgozás és a felugró ablak automatikus bezárása
+// Vágólap kiolvasása, feldolgozás
 async function pasteFromGoogle() {
     try {
         const text = await navigator.clipboard.readText();
         const match = text.match(/(-?\d+\.\d+)[\s,]+(-?\d+\.\d+)/);
-        
+
         if (match) {
             const lat = parseFloat(match[1]);
             const lng = parseFloat(match[2]);
-            
+
             if (currentMode !== 'GPS') {
                 toggleSearchMode();
             }
-            
+
             document.getElementById('latCoord').value = lat;
             document.getElementById('lngCoord').value = lng;
-            
+
             const addressText = document.getElementById('googleAddressInput').value || 'Google Maps Pont';
             processGps(lat, lng, addressText);
-            
-            // --- BIZTOSÍTÉK A BEZÁRÁSRA ---
-            clearTimeout(googleWindowTimer);
-            
-            // 1. Próbáljuk meg a globális változóval
-            if (window.googleWindow && typeof window.googleWindow.close === 'function') {
-                try { window.googleWindow.close(); } catch(e) {}
-            }
-            
-            // 2. Keresés név alapján is, ha esetleg elveszett volna a referencia
-            const popupWin = window.open('', 'GoogleMapsPopup');
-            if (popupWin) {
-                try { popupWin.close(); } catch(e) {}
-            }
-            
-            googleWindow = null;
-            // -----------------------------
 
-            showNotification('GPS koordináta sikeresen beillesztve.');
+            clearTimeout(googleWindowTimer);
+            googleWindow = null;
+
+            // A böngésző biztonsági korlátai miatt a külső Google ablak nem zárható be programozottan,
+            // így a felhasználót kérjük meg a bezárására.
+            showNotification('GPS koordináta sikeresen beillesztve! A Google ablakot bezárhatod.');
         } else {
             showNotification('Nincs felismerhető GPS koordináta a vágólapon.');
         }
@@ -225,8 +210,8 @@ function displayOnMap(lat, lng, y, x, label) {
     if (currentMarker) map.removeLayer(currentMarker);
 
     currentMarker = L.marker([lat, lng]).addTo(map)
-        .bindPopup(`<b>${label}</b><br>EOV Y: ${y} m<br>EOV X: ${x} m<br>GPS: ${lat}, ${lng}`)
-        .openPopup();
+    .bindPopup(`<b>${label}</b><br>EOV Y: ${y} m<br>EOV X: ${x} m<br>GPS: ${lat}, ${lng}`)
+    .openPopup();
 
     map.flyTo([lat, lng], 15, { duration: 1.2 });
 
@@ -242,7 +227,7 @@ function showNotification(text) {
     clearTimeout(notificationTimer);
 
     const notif = document.getElementById('notification');
-    document.getElementById('notificationText').innerHTML = text; 
+    document.getElementById('notificationText').innerHTML = text;
     notif.classList.remove('hidden');
 
     notificationTimer = setTimeout(() => {
